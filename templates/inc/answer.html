@@ -1,0 +1,46 @@
+{% load static %}
+<div class="row border border-dark rounded-lg" style="min-height: 9rem; margin: 3%;">
+    <div class="col-2 border-right border-dark ">
+        <div class="row mb-1"><img src="{% static 'img/suy7dwpw.bmp' %}" class="mx-auto rounded-sm" alt="avatar"
+                style="max-width: 3rem;"></div>
+        <div class="row">
+            <div class="col"
+                style="display: flex; flex-direction: column; justify-content: center; margin: 5%; padding: 2%;">
+                <div class="rectangle border border-dark rounded-lg" style="width: auto; text-align: center;">5000</div>
+            </div>
+            <div class="col mx-1" style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="row">
+                    <button type="button" class="btn btn-outline-dark inline-block">
+                        <img src="{% static 'img/like.png' %}" alt="like">
+                    </button>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-outline-dark inline-block">
+                        <img src="{% static 'img/dislike.png' %}" alt="dislike">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10">
+        <p style="margin: 0;">
+            Wikipedia is a multilingual online encyclopedia created and maintained as an open
+            collaboration project by a
+            community of volunteer editors using a wiki-based editing system. It is the largest and
+            most
+            popular general
+            reference work on the World Wide Web, and is one of the 20 most popular websites ranked
+            by
+            Alexa, as of March
+            2020. It features exclusively free content and no commercial ads, and is owned and
+            supported
+            by the Wikimedia
+            Foundation, a non-profit organization funded primarily through donations.</p>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label">
+                Correct!
+            </label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'inc/question_content.html' %}
+<div class="row border-bottom border-dark">
+    <!-- ANSWERS LIST -->
+    {% for answer in answers %}
+    {% include 'inc/answer.html' %}
+    {% endfor %}
+    <!-- ANSWERS LIST END -->
+</div>
+<div class="row">
+    <form style="min-width: 80%; margin: 2%;">
+        <div class="form-group">
+            <a name="answer">
+                <textarea type="answer" class="form-control border-dark my-3" placeholder="Enter your answer here"
+                    style="min-height: 7rem; text-align: start; "></textarea>
+            </a>
+        </div>
+        <button type="submit" class="btn btn-outline-dark inline-block"
+            style="background-color: darkgray;">Submit</button>
+    </form>
+</div>
+{% endblock content %}
