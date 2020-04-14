@@ -1,0 +1,18 @@
+{% load static %}
+<div class="rectangle rounded-lg" style="background-color: lightgray; max-width: 15rem; float: right">
+    <div class="row mx-1">
+        <p>{% block time %}
+            {% endblock time %}</p>
+    </div>
+    <div class="row">
+        <div class="col-2 mx-1">
+            <img src="{% static 'img/suy7dwpw.bmp' %}" class="mr-3 rounded-sm" alt="avatar" style="max-width: 3rem;">
+        </div>
+        <div class="col-10 mx-1">
+            <p>{% block creator %}
+                {% endblock creator %}</p>
+        </div>
+    </div>
+
+
+</div>

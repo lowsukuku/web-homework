@@ -1,0 +1,7 @@
+{% extends 'inc/user_block.html' %}
+{% block time %}
+{{question.creationTime}}
+{% endblock time %}
+{% block creator %}
+{{question.creator.name}}
+{% endblock creator %}
