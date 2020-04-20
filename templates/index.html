@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h3>
+<a href="{% url 'new_questions' %}" class="mt-5">New questions</a>
+<a href="{% url 'hot_questions' %}" class="mt-5">Hot questions</a></h3>
 {% for question in questions %}
 {% include 'inc/question_preview.html' %}
 {% endfor %}

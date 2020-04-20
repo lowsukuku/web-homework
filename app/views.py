@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from random import randint
 from datetime import datetime
 from time import time
+from django.urls import reverse
 
 tags = [
     f'tag {i}'
@@ -35,7 +36,15 @@ def newQuestions(request):
     page, pages = paginate(list(questions.values()), request, 10)
     return render(request, 'index.html', {
         'questions': page,
-        'pages': pages
+        'pages': pages,
+    })
+
+
+def hotQuestions(request):
+    page, pages = paginate(sorted(list(questions.values()), key=lambda question: question['rating'], reverse=True), request, 10)
+    return render(request, 'index.html', {
+        'questions': page,
+        'pages': pages,
     })
 
 

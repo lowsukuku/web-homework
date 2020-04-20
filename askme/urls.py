@@ -20,6 +20,7 @@ from app import views
 
 urlpatterns = [
     path('', views.newQuestions, name='new_questions'),
+    path('hot/', views.hotQuestions, name='hot_questions'),
     path('tag/<tag>/', views.listByTag, name='list_by_tag'),
     path('question/<int:question_id>/',
          views.questionById, name='question_by_id'),
