@@ -64,9 +64,11 @@ def listByTag(request, tag):
 def questionById(request, question_id):
     if (question_id not in questions):
         raise Http404
+    page, pages = paginate(list(answers.values()), request, 10)
     return render(request, 'question.html', {
         'question': questions.get(question_id),
-        'answers': range(10)
+        'answers': page,
+        'pages': pages
     })
 
 
