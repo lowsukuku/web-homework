@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
+from app.models import Question, Answer
 from random import randint
 from datetime import datetime
 from time import time
@@ -22,18 +23,9 @@ answers = {
     for i in range(100)
 }
 
-questions = {
-    i: {'id': i, 'title': f'question {i}',
-        'text': f'Hello world! This is my question {i}', 'rating': randint(-100, 100), 'tags': [
-            tags[randint(0, 99)]
-            for j in range(randint(1, 5))
-        ], 'creator': user, 'creationTime': datetime.now(), 'answers': answers, 'answersCount': len(answers)}
-    for i in range(100)
-}
-
-
 def newQuestions(request):
-    page, pages = paginate(list(questions.values()), request, 10)
+    page, pages = paginate(
+        Question.objects.filter(is_active=True), request, 10)
     return render(request, 'index.html', {
         'questions': page,
         'pages': pages,
@@ -41,7 +33,8 @@ def newQuestions(request):
 
 
 def hotQuestions(request):
-    page, pages = paginate(sorted(list(questions.values()), key=lambda question: question['rating'], reverse=True), request, 10)
+    page, pages = paginate(
+        Question.objects.filter(is_active=True).order_by('rating'), request, 10)
     return render(request, 'index.html', {
         'questions': page,
         'pages': pages,
@@ -49,12 +42,8 @@ def hotQuestions(request):
 
 
 def listByTag(request, tag):
-    questionsByTag = {}
-    for i in range(100):
-        a = questions[i].get('tags')
-        if (tag in a):
-            questionsByTag[i] = questions[i]
-    page, pages = paginate(list(questionsByTag.values()), request, 10)
+    page, pages = paginate(
+        Question.objects.filter(is_active=True).filter(tags__contains=tag), request, 10)
     return render(request, 'index.html', {
         'questions': page,
         'pages': pages
@@ -62,11 +51,10 @@ def listByTag(request, tag):
 
 
 def questionById(request, question_id):
-    if (question_id not in questions):
-        raise Http404
-    page, pages = paginate(list(answers.values()), request, 10)
+    question = get_object_or_404(Question, pk=question_id)
+    page, pages = paginate(Answer.objects.filter(question=question_id), request, 10)
     return render(request, 'question.html', {
-        'question': questions.get(question_id),
+        'question': question,
         'answers': page,
         'pages': pages
     })
