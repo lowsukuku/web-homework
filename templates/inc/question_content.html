@@ -10,7 +10,7 @@
                 {{question.text}}
             </p>
             Tags:
-            {% for tag in question.tags %}
+            {% for tag in question.tags.all %}
             <a href="/tag/{{tag}}">
                 {{tag}}
             </a>

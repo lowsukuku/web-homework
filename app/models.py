@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
+from django.utils import timezone
 
 class User(AbstractUser):
     upload = models.ImageField(upload_to='uploads/%Y/%m/%d/')
     
 
 class Tag(models.Model):
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=32, unique=True)
 
     def __str__(self):
         return self.title
@@ -18,7 +19,7 @@ class Contribution(models.Model):
     text = models.CharField(max_length=256)
     rating = models.IntegerField(default=0)
     create_date = models.DateTimeField(
-    default=datetime.now)
+    default=timezone.now)
 
     class Meta:
         abstract = True

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
-from app.models import Question, Answer
+from app.models import Question, Answer, Tag
 from random import randint
 from datetime import datetime
 from time import time
@@ -34,7 +34,7 @@ def newQuestions(request):
 
 def hotQuestions(request):
     page, pages = paginate(
-        Question.objects.filter(is_active=True).order_by('rating'), request, 10)
+        Question.objects.filter(is_active=True).order_by('-rating'), request, 10)
     return render(request, 'index.html', {
         'questions': page,
         'pages': pages,
@@ -42,8 +42,9 @@ def hotQuestions(request):
 
 
 def listByTag(request, tag):
+    tag = Tag.objects.get(title=tag)
     page, pages = paginate(
-        Question.objects.filter(is_active=True).filter(tags__contains=tag), request, 10)
+        Question.objects.filter(is_active=True).filter(tags=tag), request, 10)
     return render(request, 'index.html', {
         'questions': page,
         'pages': pages
