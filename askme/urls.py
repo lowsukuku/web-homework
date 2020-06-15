@@ -24,8 +24,10 @@ urlpatterns = [
     path('tag/<tag>/', views.listByTag, name='list_by_tag'),
     path('question/<int:question_id>/',
          views.questionById, name='question_by_id'),
-    path('login/', views.login, name='login'),
+    path('login/', views.user_login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('ask/', views.ask, name='ask'),
+    path('auth/', views.user_authenticate, name='auth'),
+    path('logout/', views.user_logout, name='logout'),
     path('admin/', admin.site.urls)
 ]

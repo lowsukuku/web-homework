@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">AskPupkin</a>
+    <a class="navbar-brand" href="{% url 'new_questions' %}">AskPupkin</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,15 +17,21 @@
         <a class="nav-link" href="{% url 'ask'%}">Ask</a>
     </li>
     <div class="media">
+        {% if request.user.is_authenticated %}
         <img src="{% static 'img/suy7dwpw.bmp' %}" class="mr-3 rounded-sm" alt="user">
         <div class="media-body text-light">
-            <h5 class="mt-0">Super user</h5>
+            <h5 class="mt-0">User:{{ requset.user.username }}</h5>
             <a href="#">
                 Settings
             </a>
-            <a href="#">
+            <a href="{% url 'logout'%}">
                 Log out
             </a>
+        {% else %}
+        <a href="{% url 'login'%}">
+                Log in
+            </a>
+        {% endif %}
         </div>
     </div>
 </nav>

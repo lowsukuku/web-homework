@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
@@ -7,6 +7,7 @@ from random import randint
 from datetime import datetime
 from time import time
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
 
 tags = [
     f'tag {i}'
@@ -61,9 +62,25 @@ def questionById(request, question_id):
     })
 
 
-def login(request):
+def user_login(request):
     return render(request, 'login.html', {})
 
+def user_authenticate(request):
+    username = request.POST.get('username',None)
+    if username is None:
+        raise("nibbbaaaaaaa")
+    password = request.POST.get('password', None)
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        raise(Http404)
+        # Return an 'invalid login' error message.
+    return redirect(newQuestions)
+
+def user_logout(request):
+    logout(request)
+    return redirect(login)
 
 def signup(request):
     return render(request, 'signup.html', {})
