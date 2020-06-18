@@ -18,9 +18,9 @@
     </li>
     <div class="media">
         {% if request.user.is_authenticated %}
-        <img src="{% static 'img/suy7dwpw.bmp' %}" class="mr-3 rounded-sm" alt="user">
+        <img src="{% static user.upload.url %}" class="mr-3 rounded-sm" alt="user" style="width: 64px; height: 64px;">
         <div class="media-body text-light">
-            <h5 class="mt-0">User:{{ requset.user.username }}</h5>
+            <h5 class="mt-0">User: {{ request.user.username }}</h5>
             <a href="#">
                 Settings
             </a>
@@ -28,7 +28,7 @@
                 Log out
             </a>
         {% else %}
-        <a href="{% url 'login'%}">
+        <a href="{% url 'user_login'%}">
                 Log in
             </a>
         {% endif %}

@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
-from app.models import Question, Answer, Tag
+from app.models import Question, Answer, Tag, User
 from random import randint
 from datetime import datetime
 from time import time
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 tags = [
     f'tag {i}'
@@ -67,8 +68,6 @@ def user_login(request):
 
 def user_authenticate(request):
     username = request.POST.get('username',None)
-    if username is None:
-        raise("nibbbaaaaaaa")
     password = request.POST.get('password', None)
     user = authenticate(request, username=username, password=password)
     if user is not None:
@@ -78,9 +77,24 @@ def user_authenticate(request):
         # Return an 'invalid login' error message.
     return redirect(newQuestions)
 
+def user_register(request):
+    username = request.POST.get('username',None)
+    email = request.POST.get('email',None)
+    real_name = request.POST.get('real_name',None)
+    password = request.POST.get('password',None)
+    password_repeat = request.POST.get('password_repeat',None)
+    if password != password_repeat:
+        pass
+    avatar = request.POST.get('avatar',None)
+    user = User.objects.create_user(username, email, password)
+    user.first_name = real_name
+    user.upload = avatar
+    user.save()
+    return redirect(newQuestions)
+
 def user_logout(request):
     logout(request)
-    return redirect(login)
+    return redirect(user_login)
 
 def signup(request):
     return render(request, 'signup.html', {})
@@ -89,6 +103,27 @@ def signup(request):
 def ask(request):
     return render(request, 'ask.html', {})
 
+@login_required
+def submit_question(request):
+    question = Question(title = request.POST.get('title', None))
+    question.author = request.user
+    question.text = request.POST.get('text',None)
+    question.save()
+    tags = request.POST.get('tags',None).split(",")
+    for tag_title in tags:
+        try:
+            tag = Tag.objects.get(title=tag_title)
+        except Tag.DoesNotExist:
+            tag = Tag(title=tag_title)
+            tag.save()
+        question.tags.add(tag)
+    return redirect('question_by_id',request='request', question_id='question.pk')
+
+@login_required
+def submit_answer(request):
+    answer = Answer(text = request.POST.get('text', None), author = request.user, question = Question.objects.get(pk=request.POST.get('question')))
+    answer.save()
+    return redirect('question_by_id',question_id=answer.question.pk)
 
 def paginate(objects_list, request, per_page=10):
     paginator = Paginator(objects_list, per_page)

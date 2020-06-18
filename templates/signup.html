@@ -1,42 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
     <h3>Log In</h3>
-    <form>
+    <form action="{%url 'reg'%}" method="post">
+    {% csrf_token %}
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Login</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control border-dark" placeholder="Mr. Placeholder" required>
+                <input type="text" name="username" class="form-control border-dark" placeholder="Mr. Placeholder" required>
             </div>
         </div>
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Email</label>
             <div class="col-sm-7">
-                <input type="email" class="form-control border-dark"
+                <input type="email" name="email" class="form-control border-dark"
                     placeholder="placeholder@mailserver.domain" required>
             </div>
         </div>
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Nickname</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control border-dark" placeholder="Your nickname" required>
+                <input type="text" name="real_name" class="form-control border-dark" placeholder="Your name" required>
             </div>
         </div>
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Password</label>
             <div class="col-sm-7">
-                <input type="password" class="form-control border-dark" required>
+                <input type="password" name="password" class="form-control border-dark" required>
             </div>
         </div>
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Repeat password</label>
             <div class="col-sm-7">
-                <input type="password" class="form-control border-dark" required>
+                <input type="password" name="password_repeat" class="form-control border-dark" required>
             </div>
         </div>
         <div class="form-group row" style="margin: 3%;">
             <label class="col-sm-4 col-form-label">Upload avatar</label>
             <div class="col-sm-7">
-                <input type="file" accept="image/*" class="form-control-file border-dark" required>
+                <input type="file" name="avatar" accept="image/*" class="form-control-file border-dark" required>
                 <button type="submit" class="btn btn-outline-dark inline-block mt-3"
                     style="background-color: darkgray;">Register!</button>
             </div>

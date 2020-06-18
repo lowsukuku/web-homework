@@ -4,7 +4,7 @@ from datetime import datetime
 from django.utils import timezone
 
 class User(AbstractUser):
-    upload = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+    upload = models.ImageField(upload_to='avatars', blank=True)
     
 
 class Tag(models.Model):
