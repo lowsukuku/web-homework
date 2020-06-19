@@ -39,6 +39,7 @@ class Command(BaseCommand):
                 self.stdout.write(f'user {i}')
         users_qs = User.objects.all()
         users_count = User.objects.count()
+        tags_count = Tags.objects.count()
         if (options['q'] != None):
             for i in range(options['q'][0]):
                 question = Question()
@@ -48,7 +49,7 @@ class Command(BaseCommand):
                 question.text = fake.text(max_nb_chars=256)
                 question.save()
                 for j in range(randint(1, 5)):
-                    question.tags.add(tags_qs[randint(0, 99)])
+                    question.tags.add(tags_qs[randint(0, tags_count-1)])
                 self.stdout.write(f'question {i}')
         questions_qs = Question.objects.all()
         questions_count = Question.objects.count()
