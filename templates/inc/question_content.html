@@ -1,0 +1,21 @@
+{% load static %}
+<div class="row">
+    <div class="row border-bottom border-dark" style="min-height: 9rem; margin: 2%; width: 100%">
+        {% include "inc/question_header.html" %}
+        <div class="col-10">
+
+            <h4>{{ question.title }}</h4>
+
+            <p style="margin: 0;">
+                {{question.text}}
+            </p>
+            Tags:
+            {% for tag in question.tags.all %}
+            <a href="/tag/{{tag}}">
+                {{tag}}
+            </a>
+            {% endfor %}
+            {% include 'inc/user_block_question.html' %}
+        </div>
+    </div>
+</div>

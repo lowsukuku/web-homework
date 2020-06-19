@@ -1,0 +1,22 @@
+{% load static %}
+<div class="row border border-dark rounded-lg" style="min-height: 9rem; margin: 2%;">
+    {% include "inc/question_header.html" %}
+    <div class="col-10">
+        <a href="#">
+            <h4><a href="{% url 'question_by_id' question_id=question.id %}">{{ question.title }}</a></h4>
+        </a>
+        <p
+            style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; margin: 0;">
+            {{question.text}}</p>
+        <a href="{% url 'question_by_id' question_id=question.id %}#answer">
+            answer
+        </a>
+        Tags:
+        {% for tag in question.tags.all %}
+        <a href="/tag/{{tag}}">
+            {{tag}}
+        </a>
+        {% endfor %}
+        {% include 'inc/user_block_question.html' %}
+    </div>
+</div>
