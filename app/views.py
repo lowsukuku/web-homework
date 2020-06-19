@@ -10,21 +10,6 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-tags = [
-    f'tag {i}'
-    for i in range(100)
-]
-
-user = {
-    'name': 'nibba'
-}
-
-answers = {
-    i: {'id': i, 'text': f'Hello world! This is my answer {i}',
-        'rating': randint(-100, 100), 'creator': user, 'creationTime': datetime.now()}
-    for i in range(100)
-}
-
 def newQuestions(request):
     page, pages = paginate(
         Question.objects.filter(is_active=True), request, 10)
