@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 self.stdout.write(f'user {i}')
         users_qs = User.objects.all()
         users_count = User.objects.count()
-        tags_count = Tags.objects.count()
+        tags_count = Tag.objects.count()
         if (options['q'] != None):
             for i in range(options['q'][0]):
                 question = Question()

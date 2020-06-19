@@ -90,6 +90,7 @@ def user_register(request):
     user.first_name = real_name
     user.upload = avatar
     user.save()
+    login(request,user)
     return redirect(newQuestions)
 
 def user_logout(request):
@@ -117,7 +118,7 @@ def submit_question(request):
             tag = Tag(title=tag_title)
             tag.save()
         question.tags.add(tag)
-    return redirect('question_by_id',request='request', question_id='question.pk')
+    return redirect('question_by_id', question_id=question.pk)
 
 @login_required
 def submit_answer(request):
