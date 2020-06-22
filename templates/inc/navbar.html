@@ -18,7 +18,9 @@
     </li>
     <div class="media">
         {% if request.user.is_authenticated %}
+        {%if user.upload%}
         <img src="{% static user.upload.url %}" class="mr-3 rounded-sm" alt="user" style="width: 64px; height: 64px;">
+        {%endif%}
         <div class="media-body text-light">
             <h5 class="mt-0">User: {{ request.user.username }}</h5>
             <a href="#">
@@ -28,7 +30,7 @@
                 Log out
             </a>
         {% else %}
-        <a href="{% url 'user_login'%}">
+        <a href="{% url 'login'%}">
                 Log in
             </a>
         {% endif %}
