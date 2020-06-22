@@ -9,7 +9,7 @@ from time import time
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from app.forms import AnswerForm, AuthorisationForm, QuestionForm, RegistrationForm
+from app.forms import AnswerForm, QuestionForm, RegistrationForm
 
 def newQuestions(request):
     page, pages = paginate(
