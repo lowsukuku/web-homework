@@ -33,18 +33,9 @@
     <!-- ANSWERS LIST END -->
 </div>
 <div class="row">
-    <form style="min-width: 80%; margin: 2%;" action="{%url 'submit_answer'%}" method="post">
-    {% csrf_token %}
-        <div class="form-group">
-            <a name="answer">
-                <textarea type="answer" name="text" class="form-control border-dark my-3" placeholder="Enter your answer here"
-                    style="min-height: 7rem; text-align: start; "></textarea>
-            </a>
-        </div>
-        <input type="hidden" name="question" value="{{question.pk}}">
-        <button type="submit" class="btn btn-outline-dark inline-block"
-            style="background-color: darkgray;">Submit</button>
-        
+    <form style="min-width: 80%; margin: 2%;" action="{%url 'question_by_id' question_id=question.id%}" method="post">
+        {% csrf_token %}
+        {% include 'inc/form_fields.html' %}
     </form>
 </div>
 {% endblock content %}
